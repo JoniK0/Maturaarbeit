@@ -79,93 +79,18 @@ def step(squares, direction):
 
 def move(move):
      
+    shift = ord("a")
     
-    if move[0] == "a":
-            x1 = 0
-    elif move[0] == "b":
-            x1 = 1
-    elif move[0] == "c":
-            x1 = 2
-    elif move[0] == "d":
-            x1 = 3
-    elif move[0] == "e":
-            x1 = 4
-    elif move[0] == "f":
-            x1 = 5
-    elif move[0] == "g":
-            x1 = 6
-    elif move[0] == "h":
-            x1 = 7
-            
-            
-    if move[1] == "1":
-            y1 = 0
-    elif move[1] == "2":
-            y1 = 1
-    elif move[1] == "3":
-            y1 = 2
-    elif move[1] == "4":
-            y1 = 3
-    elif move[1] == "5":
-            y1 = 4
-    elif move[1] == "6":
-            y1 = 5
-    elif move[1] == "7":
-            y1 = 6
-    elif move[1] == "8":
-            y1 = 7
-   
-   
-   
-    if move [2] == "a":
-            x2 = 0
-    elif move [2] == "b":
-            x2 = 1
-    elif move [2] == "c":
-            x2 = 2
-    elif move [2] == "d":
-            x2 = 3
-    elif move [2] == "e":
-            x2 = 4
-    elif move [2] == "f":
-            x2 = 5
-    elif move [2] == "g":
-            x2 = 6
-    elif move [2] == "h":
-            x2 = 7
-            
-            
-    if move[3] == "1":
-            y2 = 0
-    elif move[3] == "2":
-            y2 = 1
-    elif move[3] == "3":
-            y2 = 2
-    elif move[3] == "4":
-            y2 = 3
-    elif move[3] == "5":
-            y2 = 4
-    elif move[3] == "6":
-            y2 = 5
-    elif move[3] == "7":
-            y2 = 6
-    elif move[3] == "8":
-            y2 = 7
-         
+    x1 = ord(MyMove[0]) - shift
+    y1 = int(MyMove[1]) - 1
+    
+    x2 = ord(MyMove[2]) - shift
+    y2 = int(MyMove[3]) - 1
     #step to the first square     
     
     step(x1*2, "right")
        
-    ##for i in range(x1*OneSquare):
-    ##    kit.stepper1.onestep()
-    ##    kit.stepper2.onestep()
-    
     step(y1*2, "up")
-    
-    ##for i in range(y1*OneSquare):
-    ##    kit.stepper1.onestep()
-    ##   kit.stepper2.onestep(direction=stepper.BACKWARD)
-    
     
     ##electromagnet activates
     GPIO.output(Relay_Ch1, GPIO.LOW)
@@ -178,37 +103,22 @@ def move(move):
     if vectorX != 0:
         
         step(1, "down")
-        
-        ##for i in range(OneSquare/2):
-        ##    kit.stepper1.onestep(direction=stepper.BACKWARD)
-        ##    kit.stepper2.onestep()
+
     
     #if x direction positive move to the right with vectorX
     #else move to the left with vectorX
     if vectorX >= 0:
         
         step(vectorX*2, "right")
-        
-        ##for i in range(vectorX*OneSquare):
-        ##    kit.stepper1.onestep()
-        ##    kit.stepper2.onestep()
             
     else:
         
         step((-vectorX*2), "left")
         
-        ##for i in range(VectorX*OneSquare):
-        ##   kit.stepper1.onestep(direction=stepper.BACKWARD)
-        ##   kit.stepper2.onestep(direction=stepper.BACKWARD)
-    
     #step half a square to the right if y stepping is required
     if vectorY != 0:
         
         step(1, "right")
-        
-        ##for i in range(OneSquare/2):
-        ##    kit.stepper1.onestep()
-        ##    kit.stepper2.onestep()
     
     #if y is positive move up
     #else move down
@@ -216,37 +126,19 @@ def move(move):
         
         step(vectorY*2, "up")
         
-        ##for i in range(vectorY*OneSquare):
-        ##    kit.stepper1.onestep()
-        ##    kit.stepper2.onestep(direction=stepper.BACKWARD)
-            
     else:
         
         step((-vectorY)*2, "down")
-        
-        ##for i in range(vectorY*OneSquare):
-        ##    kit.stepper1.onestep(direction=stepper.BACKWARD)
-        ##    kit.stepper2.onestep()
-            
-   
     
     # if we moved half a square down correct that back
     if vectorX != 0:
         
         step(1, "up")
         
-        ##for i in range(OneSquare/2):
-        ##    kit.stepper1.onestep()
-        ##    kit.stepper2.onestep(direction=stepper.BACKWARD)
-            
     #if we moved half a square to the right correct back
     if vectorY != 0:
         
         step(1, "left")
-        
-        ##for i in range(OneSquare/2):
-        ##    kit.stepper1.onestep(direction=stepper.BACKWARD)
-        ##    kit.stepper2.onestep(direction=stepper.BACKWARD)
     
     #deactivate electromagnet
     GPIO.output(Relay_Ch1, GPIO.HIGH)
@@ -257,15 +149,7 @@ def move(move):
      
     step(x2*2, "left") 
      
-    ##for i in range(OneSquare*x2):
-    ##    kit.stepper1.onestep(direction=stepper.BACKWARD)
-    ##    kit.stepper2.onestep(direction=stepper.BACKWARD)
-       
     step(y2*2, "down")   
-       
-    ##for i in range(OneSquare*y2):
-    ##    kit.stepper1.onestep(direction=stepper.BACKWARD)
-    ##    kit.stepper2.onestep()
     
     #de-energise stepper motors so they don't get too hot
     kit.stepper1.release()
@@ -274,78 +158,13 @@ def move(move):
     
             
 def takes(take):
-        
-    if take[0] == "a":
-            x1 = 0
-    elif take[0] == "b":
-            x1 = 1
-    elif take[0] == "c":
-            x1 = 2
-    elif take[0] == "d":
-            x1 = 3
-    elif take[0] == "e":
-            x1 = 4
-    elif take[0] == "f":
-            x1 = 5
-    elif take[0] == "g":
-            x1 = 6
-    elif take[0] == "h":
-            x1 = 7
-            
-            
-    if take[1] == "1":
-            y1 = 0
-    elif take[1] == "2":
-            y1 = 1
-    elif take[1] == "3":
-            y1 = 2
-    elif take[1] == "4":
-            y1 = 3
-    elif take[1] == "5":
-            y1 = 4
-    elif take[1] == "6":
-            y1 = 5
-    elif take[1] == "7":
-            y1 = 6
-    elif take[1] == "8":
-            y1 = 7
-   
-   
-   
-    if take [2] == "a":
-            x2 = 0
-    elif take [2] == "b":
-            x2 = 1
-    elif take [2] == "c":
-            x2 = 2
-    elif take [2] == "d":
-            x2 = 3
-    elif take [2] == "e":
-            x2 = 4
-    elif take [2] == "f":
-            x2 = 5
-    elif take [2] == "g":
-            x2 = 6
-    elif take [2] == "h":
-            x2 = 7
-            
-            
-    if take[3] == "1":
-            y2 = 0
-    elif take[3] == "2":
-            y2 = 1
-    elif take[3] == "3":
-            y2 = 2
-    elif take[3] == "4":
-            y2 = 3
-    elif take[3] == "5":
-            y2 = 4
-    elif take[3] == "6":
-            y2 = 5
-    elif take[3] == "7":
-            y2 = 6
-    elif take[3] == "8":
-            y2 = 7
+    shift = ord("a")
+    
+    x1 = ord(MyMove[0]) - shift
+    y1 = int(MyMove[1]) - 1
+    
+    x2 = ord(MyMove[2]) - shift
+    y2 = int(MyMove[3]) - 1
     
     #step to the piece that will be taken
     
@@ -435,25 +254,123 @@ def takes(take):
     #de-energise stepper motors so they don't get too hot
     kit.stepper1.release()
     kit.stepper2.release()
-        
-    
-    
-    
-      
-        
-    
-    
-    
-    
-    
-        
-    
-    
-    
 
+def Castle(color, side):
     
+    if color == "black" and side == "short":
+        step(4*2, "right")
+        step(7*2, "up")
+        GPIO.output(Relay_Ch1, GPIO.LOW)
+        step(2*2, "right")
+        GPIO.output(Relay_Ch1, GPIO.HIGH)
+        step(2, "right")
+        GPIO.output(Relay_Ch1, GPIO.LOW)
+        step(1, "up")
+        step(2*2, "left")
+        step(1, "down")
+        GPIO.output(Relay_Ch1, GPIO.HIGH)
+        step(7*2, "down")
+        step(4*2, "left")
+
+    if color == "white" and side == "short":
+        step(4*2, "right")
+        GPIO.output(Relay_Ch1, GPIO.LOW)
+        step(2*2, "right")
+        GPIO.output(Relay_Ch1, GPIO.HIGH)
+        step(2, "right")
+        GPIO.output(Relay_Ch1, GPIO.LOW)
+        step(1, "down")
+        step(2*2, "left")
+        step(1, "up")
+        GPIO.output(Relay_Ch1, GPIO.HIGH)
+        step(5*2, "left")
+          
 
 
+    if color == "black" and side == "long":
+        step(4*2, "right")
+        step(7*2, "up")
+        GPIO.output(Relay_Ch1, GPIO.LOW)
+        step(2*2, "left")
+        GPIO.output(Relay_Ch1, GPIO.HIGH)
+        step(2*2, "left")
+        GPIO.output(Relay_Ch1, GPIO.LOW)
+        step(1, "up")
+        step(3*2, "right")
+        step(1, "down")
+        GPIO.output(Relay_Ch1, GPIO.HIGH)
+        step(7*2, "down")
+        step(3*2, "left")
+
+
+    if color == "white" and side == "long":
+        step(4*2, "right")
+        GPIO.output(Relay_Ch1, GPIO.LOW)
+        step(2*2, "left")
+        GPIO.output(Relay_Ch1, GPIO.HIGH)
+        step(2*2, "left")
+        GPIO.output(Relay_Ch1, GPIO.LOW)
+        step(1, "down")
+        step(3*2, "right")
+        step(1, "up")
+        GPIO.output(Relay_Ch1, GPIO.HIGH)
+        step(3*2, "left")
+
+def passant(move):
+    
+    shift = ord("a")
+
+    x1 = ord(move[0]) - shift
+    y1 = int(move[1]) - 1
+
+    x2 = ord(MyMove[2]) - shift
+    y2 = int(MyMove[3]) - 1
+
+    step(2*x1, "right")
+    step(2*y1, "up")
+
+    GPIO.output(Relay_Ch1, GPIO.LOW)
+    
+    step(1, "up")
+    step((8*2)-x2, "right")
+    step(1, "down")
+
+    GPIO.output(Relay_Ch1, GPIO.HIGH)
+
+    step((8*2) - x2, "left")
+
+    x = x1 - x2
+
+    if x > 0:
+        step(2, "right")
+
+    else:
+        step(2, "left")
+
+    GPIO.output(Relay_Ch1, GPIO.LOW)
+
+    if x > 0:
+        step(2, "left")
+
+    else:
+        step(2, "right")
+
+    y = y2 - y1
+
+    if y > 0:
+        step(2, "up")
+
+    else:
+        step(2, "down")
+
+    GPIO.output(Relay_Ch1, GPIO.HIGH)
+
+    step(2*x2, "left")
+    step(2*y2, "down")
+
+    kit.stepper1.release()
+    kit.stepper2.release()
+        
 print("Difficulty(elo):")
 elo = input()
 Elo = int(elo)
@@ -466,8 +383,28 @@ while True:
     MyMove=input()
  
      
-    if stockfish.will_move_be_a_capture(MyMove) == Stockfish.Capture.DIRECT_CAPTURE:
+    while stockfish.is_move_correct(MyMove) == False:
+        print("this is an invalid move")
+        print("please insert a valid move:")
+        MyMove = input()
+        continue
+    
+
+    if stockfish.get_what_is_on_square("e1") == Stockfish.Piece.WHITE_KING and MyMove == "e1g1":
+        print("castle")
+        Castle("white", "short")
+
+    elif stockfish.get_what_is_on_square("e1") == Stockfish.Piece.WHITE_KING and MyMove == "e1c1":
+        print("longcastle")
+        Castle("white", "long")
+ 
+     
+    elif stockfish.will_move_be_a_capture(MyMove) == Stockfish.Capture.DIRECT_CAPTURE:
         takes(MyMove)
+
+    elif stockfish.will_move_be_a_capture(MyMove) == Stockfish.Capture.EN_PASSANT:
+        passant(MyMove)
+        print("en passant")
          
     else:
         move(MyMove)
@@ -480,9 +417,21 @@ while True:
     
     StockMove = stockfish.get_best_move_time(1000)
 
-    if stockfish.will_move_be_a_capture(StockMove) == Stockfish.Capture.DIRECT_CAPTURE:
+
+    if stockfish.get_what_is_on_square("e8") == Stockfish.Piece.BLACK_KING and StockMove == "e8g8":
+        print("castle")
+        Castle("black", "short")
+
+    elif stockfish.get_what_is_on_square("e8") == Stockfish.Piece.BLACK_KING and StockMove == "e8c8":
+        print("longcastle")
+        Castle("black", "long")
+
+    elif stockfish.will_move_be_a_capture(StockMove) == Stockfish.Capture.DIRECT_CAPTURE:
         takes(StockMove)
         print("capture!")
+
+    elif stockfish.will_move_be_a_capture(StockMove) == Stockfish.Capture.EN_PASSANT:
+        passant(StockMove)
         
     else:
         move(StockMove)
@@ -494,5 +443,3 @@ while True:
     stockfish.make_moves_from_current_position([StockMove])
     
     print(stockfish.get_board_visual())
-
-
